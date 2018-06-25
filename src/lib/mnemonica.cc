@@ -1,12 +1,8 @@
 #include "mnemonica.h"
 
-#include <vector>
-
-#include "question.h"
-
 namespace spacer {
 
-const std::vector<Question> mnemonica_questions{
+static const std::vector<Question> mnemonica_questions{
   { "MNE01", "1", "4C" },
   { "MNE02", "2", "2H" },
   { "MNE03", "3", "7D" },
@@ -60,5 +56,9 @@ const std::vector<Question> mnemonica_questions{
   { "MNE51", "51", "AH" },
   { "MNE52", "52", "9D" }
 };
+
+  std::vector<Question> const & mnemonica() {
+    return mnemonica_questions;
+  }
 
 }  // namespace spacer
