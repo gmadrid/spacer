@@ -28,6 +28,8 @@ class Question {
   const std::string _answer;
 };
 
+using QuestionSet = std::vector<Question const>;
+
 }  // namespace spacer
 
 #endif  // SPACER_LIB_QUESTIONID_H

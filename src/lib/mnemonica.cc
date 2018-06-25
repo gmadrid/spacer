@@ -2,7 +2,7 @@
 
 namespace spacer {
 
-static const std::vector<Question> mnemonica_questions{
+static QuestionSet mnemonica_questions{
     {"MNE01", "1", "4C"},  {"MNE02", "2", "2H"},  {"MNE03", "3", "7D"},
     {"MNE04", "4", "3C"},  {"MNE05", "5", "4H"},  {"MNE06", "6", "6D"},
     {"MNE07", "7", "AS"},  {"MNE08", "8", "5H"},  {"MNE09", "9", "9S"},
@@ -22,6 +22,6 @@ static const std::vector<Question> mnemonica_questions{
     {"MNE49", "49", "TD"}, {"MNE50", "50", "6C"}, {"MNE51", "51", "AH"},
     {"MNE52", "52", "9D"}};
 
-std::vector<Question> const& mnemonica() { return mnemonica_questions; }
+QuestionSet const& mnemonica() { return mnemonica_questions; }
 
 }  // namespace spacer

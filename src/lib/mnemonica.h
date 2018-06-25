@@ -7,7 +7,7 @@
 
 namespace spacer {
 
-std::vector<Question> const& mnemonica();
+QuestionSet const& mnemonica();
 
 }  // namespace spacer
 
