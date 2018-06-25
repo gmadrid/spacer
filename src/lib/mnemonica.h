@@ -6,8 +6,8 @@
 #include "question.h"
 
 namespace spacer {
-  
-std::vector<Question> const & mnemonica();
+
+std::vector<Question> const& mnemonica();
 
 }  // namespace spacer
 
