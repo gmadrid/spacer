@@ -6,7 +6,7 @@
 
 namespace spacer {
 
-using QuestionId = const std::string;
+using QuestionId = std::string const;
 
 class Question {
  public:

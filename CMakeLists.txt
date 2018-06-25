@@ -16,6 +16,7 @@ add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 ### Library
 ###
 add_library(spacer_lib
+  src/lib/leitner_box.cc
   src/lib/mnemonica.cc
   src/lib/spacer.cc
 )
@@ -44,6 +45,7 @@ target_link_libraries(spacer
 ###
 enable_testing()
 add_executable(unit_tests
+  src/test/leitner_box_test.cc
   src/test/mnemonica_test.cc)
 
 target_link_libraries(unit_tests
