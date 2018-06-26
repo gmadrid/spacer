@@ -7,7 +7,7 @@
 
 namespace spacer {
 
-QuestionSet const& mnemonica();
+QuestionSet mnemonica();
 
 }  // namespace spacer
 

@@ -22,7 +22,7 @@ TEST(Mnemonica, AllCardsInQuestionSet) {
       auto val = pip + suit;
       auto found = std::find_if(
           m.begin(), m.end(),
-          [val](Question const &question) { return val == question.answer(); });
+          [val](Question const &question) { return val == question.Answer(); });
       EXPECT_NE(found, m.end());
     }
   }
@@ -33,7 +33,7 @@ TEST(Mnemonica, AllKeysUnique) {
 
   for (auto i = begin(m); i != end(m); ++i) {
     auto found = std::find_if(i + 1, end(m), [i](Question const &question) {
-      return i->id() == question.id();
+      return i->Id() == question.Id();
     });
     EXPECT_EQ(found, end(m));
   }
@@ -44,7 +44,7 @@ TEST(Mnemonica, CardsInOrder) {
 
   int last = 0;
   for (auto const &question : m) {
-    int val = stoi(question.question());
+    int val = stoi(question.QuestionString());
     ASSERT_LT(last, val);
     last = val;
   }

@@ -13,6 +13,16 @@ download_project(PROJ                googletest
 add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})		
 
 ###
+### abseil
+###
+set(BUILD_TESTING "OFF")
+download_project(PROJ                abseil
+		 GIT_REPOSITORY      https://github.com/abseil/abseil-cpp.git
+		 GIT_TAG             master
+		 UPDATE_DISCONNECTED 1)
+add_subdirectory(${abseil_SOURCE_DIR} ${abseil_BINARY_DIR})
+
+###
 ### Library
 ###
 add_library(spacer_lib
@@ -20,6 +30,9 @@ add_library(spacer_lib
   src/lib/mnemonica.cc
   src/lib/spacer.cc
 )
+target_link_libraries(spacer_lib
+  PUBLIC
+    absl_strings)
 target_compile_features(spacer_lib
   PUBLIC
     cxx_auto_type

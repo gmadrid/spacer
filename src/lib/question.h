@@ -1,8 +1,11 @@
 #ifndef SPACER_LIB_QUESTIONID_H
 #define SPACER_LIB_QUESTIONID_H
 
+#include <iostream>
 #include <string>
-#include <string_view>
+
+#include "absl/strings/string_view.h"
+#include "absl/strings/substitute.h"
 
 namespace spacer {
 
@@ -18,9 +21,14 @@ class Question {
   Question &operator=(Question const &) = default;
   Question &operator=(Question &&) = default;
 
-  QuestionId const &id() const { return _question_id; }
-  std::string const &question() const { return _question; }
-  std::string const &answer() const { return _answer; }
+  QuestionId const &Id() const { return _question_id; }
+  std::string const &QuestionString() const { return _question; }
+  std::string const &Answer() const { return _answer; }
+
+  void print() const {
+    std::cout << absl::Substitute("$0:$1:$2", _question_id, _question, _answer)
+              << std::endl;
+  }
 
  private:
   const QuestionId _question_id;
