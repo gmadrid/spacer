@@ -28,6 +28,7 @@ add_subdirectory(${abseil_SOURCE_DIR} ${abseil_BINARY_DIR})
 add_library(spacer_lib
   src/lib/leitner_box.cc
   src/lib/mnemonica.cc
+  src/lib/schedule.cc
   src/lib/spacer.cc
 )
 target_link_libraries(spacer_lib
