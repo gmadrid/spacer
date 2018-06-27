@@ -26,6 +26,7 @@ add_subdirectory(${abseil_SOURCE_DIR} ${abseil_BINARY_DIR})
 ### Library
 ###
 add_library(spacer_lib
+  src/lib/game.cc
   src/lib/leitner_box.cc
   src/lib/mnemonica.cc
   src/lib/schedule.cc
@@ -60,7 +61,8 @@ target_link_libraries(spacer
 enable_testing()
 add_executable(unit_tests
   src/test/leitner_box_test.cc
-  src/test/mnemonica_test.cc)
+  src/test/mnemonica_test.cc
+  src/test/schedule_test.cc)
 
 target_link_libraries(unit_tests
   PRIVATE
