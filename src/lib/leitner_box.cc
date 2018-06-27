@@ -5,9 +5,7 @@ namespace spacer {
 LeitnerBox::LeitnerBox(QuestionSet &&questions)
     : question_set_(std::move(questions)) {
   // Create all of the buckets
-  for (int i = 0; i <= total_buckets; ++i) {
-    buckets_.emplace_back();
-  }
+  buckets_.resize(total_buckets);
 
   // Then, put all of the questions into bucket 0.
   for (auto const &q : question_set_) {
