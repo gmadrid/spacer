@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "absl/base/attributes.h"
+
 #include "question.h"
 
 namespace spacer {
@@ -17,16 +19,12 @@ class LeitnerBox {
   // All questions will be dumped into bucket 0.
   explicit LeitnerBox(QuestionSet&& questions);
 
-  // Not copyable
-  LeitnerBox(const LeitnerBox&) = delete;
-  LeitnerBox(LeitnerBox&&) = delete;
-  LeitnerBox& operator=(const LeitnerBox&) = delete;
-  LeitnerBox& operator=(LeitnerBox&&) = delete;
+  ABSL_MUST_USE_RESULT size_t Size() const { return question_set_.size(); };
+  ABSL_MUST_USE_RESULT size_t BucketSize(size_t index) const {
+    return buckets_[index].size();
+  };
 
-  size_t Size() const { return question_set_.size(); };
-  size_t BucketSize(size_t index) const { return buckets_[index].size(); };
-
-  Question const* Next(size_t index) const;
+  ABSL_MUST_USE_RESULT Question const* Next(size_t index) const;
 
   void Shuffle(size_t index);
   void MoveToFirst(size_t index);
@@ -41,6 +39,12 @@ class LeitnerBox {
   }
 
  private:
+  // Not copyable
+  LeitnerBox(const LeitnerBox&) = delete;
+  LeitnerBox(LeitnerBox&&) = delete;
+  LeitnerBox& operator=(const LeitnerBox&) = delete;
+  LeitnerBox& operator=(LeitnerBox&&) = delete;
+
   // Add 1 since buckets are 1-indexed.
   static constexpr size_t total_buckets = last_bucket + 1;
 

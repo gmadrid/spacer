@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   if (timed_input.WaitForInput("Some prompt")) {
     std::cout << "Input: " << timed_input.Input() << std::endl;
   } else {
-    std::cout << std::endl  << "Timeout!" << std::endl;
+    std::cout << std::endl << "Timeout!" << std::endl;
   }
 
   return 0;

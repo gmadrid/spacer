@@ -3,11 +3,13 @@
 
 #include <vector>
 
+#include "absl/base/attributes.h"
+
 #include "question.h"
 
 namespace spacer {
 
-QuestionSet mnemonica();
+ABSL_MUST_USE_RESULT QuestionSet mnemonica();
 
 }  // namespace spacer
 
