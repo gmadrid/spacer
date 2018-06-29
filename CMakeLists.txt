@@ -31,6 +31,7 @@ add_library(spacer_lib
   src/lib/mnemonica.cc
   src/lib/schedule.cc
   src/lib/spacer.cc
+  src/lib/timed_input.cc
 )
 target_link_libraries(spacer_lib
   PUBLIC
