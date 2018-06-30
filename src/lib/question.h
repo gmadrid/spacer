@@ -1,6 +1,7 @@
 #ifndef SPACER_LIB_QUESTIONID_H
 #define SPACER_LIB_QUESTIONID_H
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -21,6 +22,8 @@ class Question {
   Question(Question &&) = default;
   ABSL_MUST_USE_RESULT Question &operator=(Question const &) = default;
   ABSL_MUST_USE_RESULT Question &operator=(Question &&) = default;
+
+  ABSL_MUST_USE_RESULT bool Match(absl::string_view) const;
 
   ABSL_MUST_USE_RESULT QuestionId const &Id() const { return _question_id; }
   ABSL_MUST_USE_RESULT std::string const &QuestionString() const {

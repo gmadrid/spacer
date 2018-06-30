@@ -6,12 +6,18 @@
 #include "leitner_box.h"
 #include "mnemonica.h"
 #include "schedule.h"
+#include "timed_input.h"
 
 namespace spacer {
 
 class Game {
  public:
-  Game() : schedule_(7), leitner_box_(mnemonica()) {}
+  Game(time_t timeout)
+      : schedule_(7), leitner_box_(mnemonica()), timed_input_(timeout) {
+    leitner_box_.Shuffle(LeitnerBox::waiting_bucket);
+  }
+
+  void Loop();
 
  private:
   // No copy/move
@@ -22,6 +28,7 @@ class Game {
 
   Schedule schedule_;
   LeitnerBox leitner_box_;
+  TimedInput timed_input_;
 };
 
 }  // namespace spacer

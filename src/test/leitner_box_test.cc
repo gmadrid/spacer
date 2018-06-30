@@ -31,7 +31,7 @@ TEST(LeitnerBox, StartsInBucket0) {
 
 TEST(LeitnerBox, NextSimple) {
   size_t size = 3;
-  LeitnerBox lb(SimpleTestSet(size));
+  LeitnerBox lb(SimpleTestSet(size), false);
 
   auto q = lb.Next(0);
   EXPECT_EQ(q->Id(), Key(size - 1));
@@ -39,7 +39,7 @@ TEST(LeitnerBox, NextSimple) {
 
 TEST(LeitnerBox, SimpleMoves) {
   size_t size = 5;
-  LeitnerBox lb(SimpleTestSet(size));
+  LeitnerBox lb(SimpleTestSet(size), false);
   EXPECT_EQ(size, lb.BucketSize(0));
 
   auto q0 = lb.Next(0);

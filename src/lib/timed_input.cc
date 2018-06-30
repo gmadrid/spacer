@@ -21,7 +21,7 @@ bool TimedInput::WaitForInput(absl::string_view prompt) {
   FD_ZERO(&input_set);
   FD_SET(0, &input_set);
 
-  cout << StrCat(prompt, " (", timeout_.tv_sec, " secs): ") << flush;
+  cout << StrCat("  ", prompt, ": ") << flush;
 
   auto result = select(1, &input_set, NULL, NULL, &timeout_);
   if (result < 1) {
@@ -37,21 +37,5 @@ string TimedInput::Input() {
   assert(input_valid_);
   return input_;
 }
-
-// bool TimedInput::GetInput(absl::string_view prompt, std::string *output) {
-//   fd_set input_set;
-//   FD_ZERO(&input_set);
-//   FD_SET(0, &input_set);
-
-//   cout << StrCat(prompt, " (", timeout_.tv_sec, " secs): ") << flush;
-
-//   auto result = select(1, &input_set, NULL, NULL, &timeout_);
-//   if (result < 1) {
-//     return false;
-//   }
-
-//   std::cin >> *output;
-//   return true;
-// }
 
 }  // namespace spacer

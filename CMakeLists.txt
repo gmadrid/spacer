@@ -29,6 +29,7 @@ add_library(spacer_lib
   src/lib/game.cc
   src/lib/leitner_box.cc
   src/lib/mnemonica.cc
+  src/lib/question.cc
   src/lib/schedule.cc
   src/lib/spacer.cc
   src/lib/timed_input.cc
@@ -63,6 +64,7 @@ enable_testing()
 add_executable(unit_tests
   src/test/leitner_box_test.cc
   src/test/mnemonica_test.cc
+  src/test/question_test.cc
   src/test/schedule_test.cc)
 
 target_link_libraries(unit_tests
