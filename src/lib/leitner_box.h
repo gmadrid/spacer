@@ -6,6 +6,7 @@
 
 #include "absl/base/attributes.h"
 
+#include "json_helpers.h"
 #include "question.h"
 
 namespace spacer {
@@ -31,19 +32,19 @@ class LeitnerBox {
   void MoveToFirst(size_t index);
   void MoveUp(size_t index);
 
-  void Print() const {
-    for (int i = first_bucket; i <= last_bucket; i++) {
-      PrintBucket(i);
-    }
-  }
+  /* void Print() const { */
+  /*   for (int i = first_bucket; i <= last_bucket; i++) { */
+  /*     PrintBucket(i); */
+  /*   } */
+  /* } */
 
-  void PrintBucket(size_t index) const {
-    std::cout << absl::Substitute("Bucket $0", index) << std::endl;
-    for (auto q : buckets_[index]) {
-      std::cout << "  ";
-      q->print();
-    }
-  }
+  /* void PrintBucket(size_t index) const { */
+  /*   std::cout << absl::Substitute("Bucket $0", index) << std::endl; */
+  /*   for (auto q : buckets_[index]) { */
+  /*     std::cout << "  "; */
+  /*     print_json(*q); */
+  /*   } */
+  /* } */
 
  private:
   // Not copyable
@@ -64,6 +65,9 @@ class LeitnerBox {
   Buckets buckets_;
   std::default_random_engine rnd_;
 };
+
+void to_json(json& j, LeitnerBox const& q);
+void from_json(json const& j, LeitnerBox& p);
 
 }  // namespace spacer
 

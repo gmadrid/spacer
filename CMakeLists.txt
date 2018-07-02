@@ -23,6 +23,16 @@ download_project(PROJ                abseil
 add_subdirectory(${abseil_SOURCE_DIR} ${abseil_BINARY_DIR})
 
 ###
+### json
+###
+set(JSON_BuildTests OFF)
+download_project(PROJ                json
+                 GIT_REPOSITORY      https://github.com/nlohmann/json.git
+		 GIT_TAG             master
+		 UPDATE_DISCONNECTED 1)
+add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR})		 
+
+###
 ### Library
 ###
 add_library(spacer_lib
@@ -31,12 +41,12 @@ add_library(spacer_lib
   src/lib/mnemonica.cc
   src/lib/question.cc
   src/lib/schedule.cc
-  src/lib/spacer.cc
   src/lib/timed_input.cc
 )
 target_link_libraries(spacer_lib
   PUBLIC
-    absl_strings)
+    absl_strings
+    nlohmann_json)
 target_compile_features(spacer_lib
   PUBLIC
     cxx_auto_type

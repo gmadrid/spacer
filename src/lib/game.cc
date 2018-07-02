@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "absl/strings/str_cat.h"
+#include "nlohmann/json.hpp"
 
 namespace spacer {
 
@@ -43,7 +44,7 @@ void Game::Loop() {
            << endl;
       leitner_box_.MoveToFirst(bucket_index);
     } else {
-      if (q->Match(timed_input_.Input())) {
+      if (q->MatchAnswer(timed_input_.Input())) {
         leitner_box_.MoveUp(bucket_index);
       } else {
         cout << absl::StrCat("Nope! ", q->QuestionString(), " ==> ",
