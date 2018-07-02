@@ -8,8 +8,7 @@ constexpr auto question_jkey = "question";
 constexpr auto answer_jkey = "answer";
 
 bool Question::operator==(Question const &rhs) const {
-  return QuestionString() == rhs.QuestionString() &&
-         Answer() == rhs.Answer();
+  return QuestionString() == rhs.QuestionString() && Answer() == rhs.Answer();
 }
 
 bool Question::MatchAnswer(absl::string_view match) const {

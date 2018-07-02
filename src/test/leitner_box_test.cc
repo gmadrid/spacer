@@ -11,14 +11,13 @@ namespace tests {
 using std::string;
 using std::vector;
 
-  std::string Q(size_t index) { return absl::Substitute("Question $0", index); }
+std::string Q(size_t index) { return absl::Substitute("Question $0", index); }
 
 LeitnerBox SimpleTestSet(size_t size) {
   QuestionSet questions;
 
   for (int i = 0; i < size; ++i) {
-    questions.emplace_back(Q(i),
-                           absl::Substitute("Answer $0", i));
+    questions.emplace_back(Q(i), absl::Substitute("Answer $0", i));
   }
 
   LeitnerBox result;
