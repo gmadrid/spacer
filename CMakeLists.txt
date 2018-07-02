@@ -60,9 +60,18 @@ target_compile_features(spacer_lib
 )
 
 ###
+### Homebrew libs
+###
+find_path(TCLAP_PATH tclap)
+
+###
 ### Executable
 ###
 add_executable(spacer src/main/main.cc)
+target_include_directories(spacer
+  SYSTEM
+  PRIVATE
+    ${TCLAP_PATH})
 target_link_libraries(spacer
   PRIVATE
     spacer_lib)

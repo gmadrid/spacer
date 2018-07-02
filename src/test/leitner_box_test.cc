@@ -110,7 +110,9 @@ TEST(LeitnerBox, Json) {
   lb.MoveUp(1);
   lb.MoveUp(2);
 
-  //  print_json(lb);
+  json j = lb;
+  LeitnerBox lb2 = j;
+  EXPECT_EQ(lb, lb2);
 }
 
 }  // namespace tests

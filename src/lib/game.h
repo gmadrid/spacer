@@ -10,6 +10,8 @@
 
 namespace spacer {
 
+constexpr size_t DEFAULT_NEW_QUESTIONS = 5;
+
 class Game {
  public:
   Game(time_t timeout) : schedule_(7), timed_input_(timeout) {
@@ -17,7 +19,7 @@ class Game {
     leitner_box_.Shuffle(LeitnerBox::waiting_bucket);
   }
 
-  void Loop();
+  void Loop(size_t num_new_questions = DEFAULT_NEW_QUESTIONS);
 
  private:
   // No copy/move

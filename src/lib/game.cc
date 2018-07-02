@@ -8,7 +8,7 @@ namespace spacer {
 using std::cout;
 using std::endl;
 
-void Game::Loop() {
+void Game::Loop(size_t num_new_questions) {
   // 1. Get current level from schedule.
   // 2. If bucket in LB has contents.
   //    a. Pop question
@@ -21,7 +21,7 @@ void Game::Loop() {
   while (true) {
     if (leitner_box_.BucketSize(LeitnerBox::first_bucket) == 0 &&
         leitner_box_.BucketSize(LeitnerBox::first_bucket + 1) == 0) {
-      int new_qs = 5;
+      int new_qs = num_new_questions;
       cout << "Adding " << new_qs << " new questions." << endl;
       while (new_qs-- &&
              leitner_box_.BucketSize(LeitnerBox::waiting_bucket) > 0) {

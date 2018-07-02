@@ -2,6 +2,7 @@
 #define SPACER_LIB_LEITNER_BOX_H
 
 #include <deque>
+#include <iostream>
 #include <random>
 
 #include "absl/base/attributes.h"
@@ -25,6 +26,13 @@ class LeitnerBox {
   LeitnerBox& operator=(const LeitnerBox&) = default;
   LeitnerBox& operator=(LeitnerBox&&) = default;
 
+  ABSL_MUST_USE_RESULT bool operator==(LeitnerBox const& rhs) const;
+  ABSL_MUST_USE_RESULT bool operator!=(LeitnerBox const& rhs) const {
+    return !(*this == rhs);
+  }
+
+  friend std::ostream& operator<<(std::ostream& stream, const LeitnerBox& lb);
+
   // Add all questions (in order) to the waiting bucket.
   template <typename T>
   void AddQuestions(const T& questions);
@@ -39,6 +47,9 @@ class LeitnerBox {
   void Shuffle(size_t index);
   void MoveToFirst(size_t index);
   void MoveUp(size_t index);
+
+  friend void to_json(json& j, LeitnerBox const& q);
+  friend void from_json(json const& j, LeitnerBox& p);
 
  private:
   // Add 1 since buckets are 1-indexed.
@@ -57,9 +68,6 @@ void LeitnerBox::AddQuestions(const T& questions) {
   std::copy(begin(questions), end(questions), std::back_inserter(buckets_[0]));
   num_questions_ += questions.size();
 }
-
-void to_json(json& j, LeitnerBox const& q);
-void from_json(json const& j, LeitnerBox& p);
 
 }  // namespace spacer
 
