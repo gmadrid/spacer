@@ -12,8 +12,8 @@ namespace spacer {
 
 class Game {
  public:
-  Game(time_t timeout)
-      : schedule_(7), leitner_box_(mnemonica()), timed_input_(timeout) {
+  Game(time_t timeout) : schedule_(7), timed_input_(timeout) {
+    leitner_box_.AddQuestions(mnemonica());
     leitner_box_.Shuffle(LeitnerBox::waiting_bucket);
   }
 

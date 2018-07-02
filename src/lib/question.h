@@ -1,5 +1,5 @@
-#ifndef SPACER_LIB_QUESTIONID_H
-#define SPACER_LIB_QUESTIONID_H
+#ifndef SPACER_LIB_QUESTION_H
+#define SPACER_LIB_QUESTION_H
 
 #include <algorithm>
 #include <iostream>
@@ -14,12 +14,10 @@ namespace spacer {
 
 using nlohmann::json;
 
-using QuestionId = std::string;
-
 class Question {
  public:
-  Question(QuestionId id, std::string_view question, std::string_view answer)
-      : _question_id(id), _question(question), _answer(answer) {}
+  Question(std::string_view question, std::string_view answer)
+      : _question(question), _answer(answer) {}
 
   Question() = default;
   Question(Question const &) = default;
@@ -27,18 +25,19 @@ class Question {
   Question &operator=(Question const &) = default;
   Question &operator=(Question &&) = default;
 
-  ABSL_MUST_USE_RESULT bool operator==(Question const &) const;
+  ABSL_MUST_USE_RESULT bool operator==(Question const &rhs) const;
+  ABSL_MUST_USE_RESULT bool operator!=(Question const &rhs) const {
+    return !(*this == rhs);
+  }
 
   ABSL_MUST_USE_RESULT bool MatchAnswer(absl::string_view) const;
 
-  ABSL_MUST_USE_RESULT QuestionId const &Id() const { return _question_id; }
   ABSL_MUST_USE_RESULT std::string const &QuestionString() const {
     return _question;
   }
   ABSL_MUST_USE_RESULT std::string const &Answer() const { return _answer; }
 
  private:
-  QuestionId _question_id;
   std::string _question;
   std::string _answer;
 };
@@ -50,4 +49,4 @@ void from_json(json const &j, Question &p);
 
 }  // namespace spacer
 
-#endif  // SPACER_LIB_QUESTIONID_H
+#endif  // SPACER_LIB_QUESTION_H

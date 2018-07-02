@@ -17,16 +17,24 @@ class LeitnerBox {
   static constexpr size_t last_bucket = 7;
   static constexpr size_t waiting_bucket = 0;
 
-  // Make a box from a set of questions.
-  // All questions will be dumped into bucket 0.
-  LeitnerBox(QuestionSet&& questions, bool shuffle = true);
+  // An empty LeitnerBox.
+  LeitnerBox();
 
-  ABSL_MUST_USE_RESULT size_t Size() const { return question_set_.size(); };
+  LeitnerBox(const LeitnerBox&) = default;
+  LeitnerBox(LeitnerBox&&) = default;
+  LeitnerBox& operator=(const LeitnerBox&) = default;
+  LeitnerBox& operator=(LeitnerBox&&) = default;
+
+  // Add all questions (in order) to the LeitnerBox's waiting bucket.
+  template <typename T>
+  void AddQuestions(const T& questions);
+
+  ABSL_MUST_USE_RESULT size_t Size() const { return num_questions_; };
   ABSL_MUST_USE_RESULT size_t BucketSize(size_t index) const {
     return buckets_[index].size();
   };
 
-  ABSL_MUST_USE_RESULT Question const* Next(size_t index) const;
+  ABSL_MUST_USE_RESULT Question Next(size_t index) const;
 
   void Shuffle(size_t index);
   void MoveToFirst(size_t index);
@@ -47,24 +55,22 @@ class LeitnerBox {
   /* } */
 
  private:
-  // Not copyable
-  LeitnerBox(const LeitnerBox&) = delete;
-  LeitnerBox(LeitnerBox&&) = delete;
-  LeitnerBox& operator=(const LeitnerBox&) = delete;
-  LeitnerBox& operator=(LeitnerBox&&) = delete;
-
   // Add 1 since buckets are 1-indexed.
   static constexpr size_t total_buckets = last_bucket + 1;
 
-  using Bucket = std::deque<Question const*>;
+  using Bucket = std::deque<Question>;
   using Buckets = std::deque<Bucket>;
 
-  // We own the QuestionSet, so we can put ptrs into it in the buckets.
-  // Since it's const, the ptrs will never change.
-  QuestionSet const question_set_;
+  size_t num_questions_ = 0;
   Buckets buckets_;
   std::default_random_engine rnd_;
 };
+
+template <typename T>
+void LeitnerBox::AddQuestions(const T& questions) {
+  std::copy(begin(questions), end(questions), std::back_inserter(buckets_[0]));
+  num_questions_ += questions.size();
+}
 
 void to_json(json& j, LeitnerBox const& q);
 void from_json(json const& j, LeitnerBox& p);

@@ -37,18 +37,17 @@ void Game::Loop() {
     }
 
     auto q = leitner_box_.Next(bucket_index);
-    auto answered = timed_input_.WaitForInput(q->QuestionString());
+    auto answered = timed_input_.WaitForInput(q.QuestionString());
     if (!answered) {
-      cout << absl::StrCat("TIMES UP! ", q->QuestionString(), " ==> ",
-                           q->Answer())
+      cout << absl::StrCat("TIMES UP! ", q.QuestionString(), " ==> ",
+                           q.Answer())
            << endl;
       leitner_box_.MoveToFirst(bucket_index);
     } else {
-      if (q->MatchAnswer(timed_input_.Input())) {
+      if (q.MatchAnswer(timed_input_.Input())) {
         leitner_box_.MoveUp(bucket_index);
       } else {
-        cout << absl::StrCat("Nope! ", q->QuestionString(), " ==> ",
-                             q->Answer())
+        cout << absl::StrCat("Nope! ", q.QuestionString(), " ==> ", q.Answer())
              << endl;
         leitner_box_.MoveToFirst(bucket_index);
       }

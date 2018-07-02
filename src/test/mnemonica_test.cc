@@ -33,7 +33,7 @@ TEST(Mnemonica, AllKeysUnique) {
 
   for (auto i = begin(m); i != end(m); ++i) {
     auto found = std::find_if(i + 1, end(m), [i](Question const &question) {
-      return i->Id() == question.Id();
+      return i->QuestionString() == question.QuestionString();
     });
     EXPECT_EQ(found, end(m));
   }

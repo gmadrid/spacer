@@ -3,23 +3,40 @@
 #include "absl/strings/substitute.h"
 #include "gtest/gtest.h"
 
+#include "../lib/json_helpers.h"
+
 namespace spacer {
 namespace tests {
 
 using std::string;
 using std::vector;
 
-std::string Key(size_t index) { return absl::Substitute("Key $0", index); }
+  std::string Q(size_t index) { return absl::Substitute("Question $0", index); }
 
-QuestionSet SimpleTestSet(size_t size) {
-  QuestionSet result;
+LeitnerBox SimpleTestSet(size_t size) {
+  QuestionSet questions;
 
   for (int i = 0; i < size; ++i) {
-    result.emplace_back(Key(i), absl::Substitute("Question $0", i),
-                        absl::Substitute("Answer $0", i));
+    questions.emplace_back(Q(i),
+                           absl::Substitute("Answer $0", i));
   }
 
+  LeitnerBox result;
+  result.AddQuestions(questions);
+
   return result;
+}
+
+TEST(LeitnerBox, Empty) {
+  // Basically, make sure that nothing crashes.
+  LeitnerBox lb{};
+  EXPECT_EQ(0, lb.Size());
+  for (int i = LeitnerBox::waiting_bucket; i <= LeitnerBox::last_bucket; ++i) {
+    lb.Shuffle(i);
+    EXPECT_EQ(0, lb.BucketSize(i));
+  }
+  lb.MoveToFirst(0);
+  lb.MoveUp(1);
 }
 
 TEST(LeitnerBox, StartsInBucket0) {
@@ -31,15 +48,15 @@ TEST(LeitnerBox, StartsInBucket0) {
 
 TEST(LeitnerBox, NextSimple) {
   size_t size = 3;
-  LeitnerBox lb(SimpleTestSet(size), false);
+  LeitnerBox lb(SimpleTestSet(size));
 
   auto q = lb.Next(0);
-  EXPECT_EQ(q->Id(), Key(size - 1));
+  EXPECT_EQ(q.QuestionString(), Q(size - 1));
 }
 
 TEST(LeitnerBox, SimpleMoves) {
   size_t size = 5;
-  LeitnerBox lb(SimpleTestSet(size), false);
+  LeitnerBox lb(SimpleTestSet(size));
   EXPECT_EQ(size, lb.BucketSize(0));
 
   auto q0 = lb.Next(0);
@@ -75,6 +92,26 @@ TEST(LeitnerBox, DeeperMoves) {
   EXPECT_EQ(3, lb.BucketSize(1));
   EXPECT_EQ(2, lb.BucketSize(2));
   EXPECT_EQ(1, lb.BucketSize(3));
+}
+
+TEST(LeitnerBox, Json) {
+  size_t size = 11;
+  LeitnerBox lb(SimpleTestSet(size));
+  EXPECT_EQ(size, lb.BucketSize(0));
+
+  lb.MoveToFirst(0);
+  lb.MoveToFirst(0);
+  lb.MoveToFirst(0);
+  lb.MoveToFirst(0);
+  lb.MoveToFirst(0);
+  lb.MoveToFirst(0);
+
+  lb.MoveUp(1);
+  lb.MoveUp(1);
+  lb.MoveUp(1);
+  lb.MoveUp(2);
+
+  //  print_json(lb);
 }
 
 }  // namespace tests

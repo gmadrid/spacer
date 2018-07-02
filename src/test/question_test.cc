@@ -10,7 +10,7 @@ namespace spacer {
 namespace tests {
 
 TEST(Question, CaseSensitivity) {
-  Question q("ID", "QQ", "AnSwEr");
+  Question q("QQ", "AnSwEr");
 
   EXPECT_TRUE(q.MatchAnswer("answer"));
   EXPECT_TRUE(q.MatchAnswer("ANSWER"));
@@ -18,7 +18,7 @@ TEST(Question, CaseSensitivity) {
 }
 
 TEST(Question, Json) {
-  auto q = Question("ID", "QQ", "Answer");
+  auto q = Question("QQ", "Answer");
   json j = q;
   Question q2 = j;
   ASSERT_EQ(q, q2);
