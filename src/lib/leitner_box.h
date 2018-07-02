@@ -25,7 +25,7 @@ class LeitnerBox {
   LeitnerBox& operator=(const LeitnerBox&) = default;
   LeitnerBox& operator=(LeitnerBox&&) = default;
 
-  // Add all questions (in order) to the LeitnerBox's waiting bucket.
+  // Add all questions (in order) to the waiting bucket.
   template <typename T>
   void AddQuestions(const T& questions);
 
@@ -39,20 +39,6 @@ class LeitnerBox {
   void Shuffle(size_t index);
   void MoveToFirst(size_t index);
   void MoveUp(size_t index);
-
-  /* void Print() const { */
-  /*   for (int i = first_bucket; i <= last_bucket; i++) { */
-  /*     PrintBucket(i); */
-  /*   } */
-  /* } */
-
-  /* void PrintBucket(size_t index) const { */
-  /*   std::cout << absl::Substitute("Bucket $0", index) << std::endl; */
-  /*   for (auto q : buckets_[index]) { */
-  /*     std::cout << "  "; */
-  /*     print_json(*q); */
-  /*   } */
-  /* } */
 
  private:
   // Add 1 since buckets are 1-indexed.

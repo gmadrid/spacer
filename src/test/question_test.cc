@@ -11,7 +11,6 @@ namespace tests {
 
 TEST(Question, Default) {
   Question q;
-
   EXPECT_EQ("", q.QuestionString());
   EXPECT_EQ("", q.Answer());
 }
